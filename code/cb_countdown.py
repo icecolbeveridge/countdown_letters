@@ -9,8 +9,8 @@ from collections import defaultdict, Counter
 from random import randint, sample
 from itertools import combinations
 import cProfile, pstats, StringIO
-pr = cProfile.Profile()
-pr.enable()
+#pr = cProfile.Profile()
+#pr.enable()
 
 LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".lower()
 PRIMES = [2,3,5,7,11,
@@ -27,7 +27,7 @@ VOWELS = [LOOKUP[i] for i in 'eeeeeeeeeeeeaaaaaaaaaiiiiiiiiioooooooouuuu']
 CONSONANTS = [LOOKUP[i] for i in 'nnnnnnrrrrrrttttttllllssssddddgggbbccmmppffhhvvwwyykjxqz']
 COUNTERS = defaultdict(Counter)
 
-N = 100000
+N = 1000000
 
 def score_word(x):
     x = x.lower()
@@ -70,14 +70,16 @@ for i in range(N):
     if words:
         COUNTERS[len(words.pop())].update(words)
 
-for i in COUNTERS:
+k=COUNTERS.keys()
+k.sort()
+for i in k:
     print i
 
-    print "\n".join([("%r (%d) " % (s,t)) for (s,t) in COUNTERS[i].most_common(20)])
+    print "\n".join([("%s (%d) " % (s,t)) for (s,t) in COUNTERS[i].most_common(20)])
     
-pr.disable()
-s = StringIO.StringIO()
-sortby = 'cumulative'
-ps = pstats.Stats(pr, stream=s).sort_stats(sortby)
-ps.print_stats()
-print s.getvalue()
+#pr.disable()
+#s = StringIO.StringIO()
+#sortby = 'cumulative'
+#ps = pstats.Stats(pr, stream=s).sort_stats(sortby)
+#ps.print_stats()
+#print s.getvalue()
