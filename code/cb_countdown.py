@@ -68,7 +68,10 @@ words_dict()
 for i in range(N):
     letters, words = iterate()
     if words:
-        COUNTERS[len(words.pop())].update(words)
+        x = words.pop()
+        n = len(x)
+        words.add(x)
+        COUNTERS[n].update(words)
 
 k=COUNTERS.keys()
 k.sort()
